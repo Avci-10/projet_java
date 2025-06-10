@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+<!-- BOUTON -->
+<button class="btn btn-primary" id="ahla">
+    + ajouter un étudiantsdfd
+</button>
+<a href="#" class="btn btn-success" id="ahlan">cliquez ici  </a>
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>dfdf</th>
+        <th>dfdf</th>
+        <th>dfdf</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>dfdf</td>
+        <td>sdfsdf</td>
+        <td>vnb,k</td>
+    </tr> <tr>
+        <td>dfdf</td>
+        <td>sdfsdf</td>
+        <td>vnb,k</td>
+    </tr> <tr>
+        <td>dfdf</td>
+        <td>sdfsdf</td>
+        <td>vnb,k</td>
+    </tr>
+    <tr>
+        <th>sdfs</th>
+        <th>ghjk</th>
+        <th>fghjk</th>
+    </tr> <tr>
+        <th>sdfs</th>
+        <th>ghjk</th>
+        <th>fghjk</th>
+    </tr> <tr>
+        <th>sdfs</th>
+        <th>ghjk</th>
+        <th>fghjk</th>
+    </tr>
+    </tbody>
+</table>
+
+    <!-- Afficher -->
+    <button class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#etudiantModal"
+            onclick="ouvrirModal('afficher', ${i.idEtudiant}, '${i.nomcompletEtudiant}', '${i.emailEtudiant}')">
+        <i class="fas fa-info-circle"></i>
+    </button>
+
+    <!-- Modifier -->
+    <button class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#etudiantModal"
+            onclick="ouvrirModal('modifier', 5, 'iheb', 'fdfdfd')">
+        <i class="fas fa-edit"></i>
+    </button>
+
+    <!-- Supprimer -->
+    <button class="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#etudiantModal"
+            onclick="ouvrirModal('supprimer', ${i.idEtudiant}, '${i.nomcompletEtudiant}', '${i.emailEtudiant}')">
+        <i class="fas fa-trash-alt"></i>
+    </button>
+<div class="modal fade" id="etudiantModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Titre dynamique</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenu injecté par JS -->
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <!-- Footer dynamique selon action -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById("ahla").addEventListener("click",ev => {
+
+    Swal.fire({
+        title: "Succès",
+        text: "${sessionScope.messageSuccess}",
+        icon: "success"
+    });
+    })
+
+</script>
+<script>
+    function ouvrirModal(action, id, nom, email) {
+        const title = document.getElementById("modalTitle");
+        const body = document.getElementById("modalBody");
+        const footer = document.getElementById("modalFooter");
+
+        // Nettoyage
+        body.innerHTML = "";
+        footer.innerHTML = "";
+
+        if (action === 'afficher') {
+            title.textContent = "👁️ Détails de l'étudiant";
+            body.innerHTML = `
+            <p><strong>ID :</strong> ${id}</p>
+            <p><strong>Nom :</strong> ${nom}</p>
+            <p><strong>Email :</strong> ${email}</p>
+        `;
+        } else if (action === 'modifier') {
+            title.textContent = "✏️ Modifier étudiant";
+            body.innerHTML = `
+            <form id="formModif" method="post" action="modifierEtudiant">
+                <input type="hidden" name="id" value="${id}">
+                <div class="mb-3">
+                    <label>Nom</label>
+                    <input type="text" name="nomComplet" class="form-control" value="${nom}">
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="${email}">
+                </div>
+            </form>
+        `;
+            footer.innerHTML = `
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button class="btn btn-primary" onclick="document.getElementById('formModif').submit()">Enregistrer</button>
+        `;
+        } else if (action === 'supprimer') {
+            title.textContent = "🗑️ Supprimer étudiant";
+            body.innerHTML = `<p>Es-tu sûr de vouloir supprimer <strong>${nom}</strong> ?</p>`;
+            footer.innerHTML = `
+            <form method="post" action="supprimerEtudiant">
+                <input type="hidden" name="id" value="${id}">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+        `;
+        }
+    }
+</script>
+<script>
+document.getElementById("ahlan").addEventListener("click", () => {
+afficherMessage("Valider cliqué !");
+});
+    function afficherMessage(msg) {
+        Swal.fire({
+            title: "Info",
+            text: msg,
+            icon: "success"
+        });
+    }
+</script>
+
+
+
+</body>
+</html>
