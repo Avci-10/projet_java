@@ -5,11 +5,12 @@
   Time: 03:06
   To change this template use File | Settings | File Templates.
 --%>
-<div class="sidebar">
-  <h4 class="text-center">🎓 Université Admin</h4>
-  <hr>
-  <a href="DashboardAdmin.jsp"><i class="fa fa-chart-line"></i> Dashboard</a>
-  <a href="../WEB-INF/Etudiants.jsp"><i class="fa fa-user-graduate"></i> Etudiants</a>
-  <a href="../WEB-INF/Prof.jsp"><i class="fa fa-chalkboard-teacher"></i> Professeurs</a>
-  <a href="#"><i class="fa fa-door-open"></i> Logout</a>
+
+<div class="col-md-2 sidebar d-flex flex-column p-3">
+  <h4 class="mb-4 text-center"></h4>
+  <a href="sommeEtudiant"><i class="fas fa-home me-2"></i> Dashboard</a>
+  <a href="../WEB-INF/Etudiants.jsp"><i class="fas fa-users me-2"></i> Etudiants</a>
+  <a href="#"><i class="fas fa-chart-line me-2"></i> Statistiques</a>
+  <a href="#"><i class="fas fa-cog me-2"></i> Parametres</a>
+  <a href="login.jsp"><i class="fas fa-sign-out-alt me-2"></i> Deconnexion</a>
 </div>

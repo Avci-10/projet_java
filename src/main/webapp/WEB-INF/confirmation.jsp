@@ -14,12 +14,12 @@
 <div class="container">
     <h2>Résultat de l'ajout</h2>
 
-    <!-- Affiche le message si présent -->
+
     <c:if test="${ not  empty message}">
         <div class="alert alert-info">${message}</div>
     </c:if>
 
-    <a href="Etudiants.jsp" class="btn btn-primary mt-3">↩ Ajouter un autre étudiant</a>
+    <a href="Etudiants.jsp" class="btn btn-primary mt-3"> Ajouter un autre étudiant</a>
 </div>
 
 </body>

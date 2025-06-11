@@ -15,8 +15,8 @@ public class RecupererEtudiantParId extends HttpServlet {
     protected void doGet(HttpServletRequest req , HttpServletResponse res ) throws IOException,ServletException {
         int id =Integer.parseInt(req.getParameter("id"));
         Etudiant etudiant = new EtudiantDb().getEtudiantsparId(id);
-        req.setAttribute("etudiant", etudiant);
-        req.getRequestDispatcher("WEB-INF/Etudiants.jsp").forward(req,res);
+        req.getSession().setAttribute("etudiant", etudiant);
+        res.sendRedirect("getEtudiants");
 
 
     }

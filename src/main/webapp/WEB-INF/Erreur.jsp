@@ -5,9 +5,8 @@
   Time: 02:24
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"  isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 
 
 <!DOCTYPE html>
@@ -20,13 +19,20 @@
 
 <div class="container">
     <h2>Résultat de l'affichage</h2>
-    <c:if  test="${not empty messageinsertion}" >
-        <h2  class="alert alert-danger">${messageinsertion}</h2>
+    <c:if test="${not empty messageinsertion}">
+        <h2 class="alert alert-danger">${messageinsertion}</h2>
     </c:if>
 
-    <!-- Affiche le message si présent -->
     <c:if test="${ not  empty msgaffichage}">
         <div class="alert alert-danger">${msgaffichage}</div>
+    </c:if>
+
+    <c:if test="${ not  empty error}">
+        <div class="alert alert-danger">${error}</div>
+    </c:if>
+
+    <c:if test="${ not  empty messagemodification}">
+        <div class="alert alert-danger">${messagemodification}</div>
     </c:if>
 
 </div>

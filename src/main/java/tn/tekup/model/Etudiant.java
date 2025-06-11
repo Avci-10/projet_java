@@ -8,6 +8,13 @@ public class Etudiant {
     private String emailEtudiant;
     private String mdpEtudiant;
     private Timestamp dateInscrit;
+//hedha pour la modification
+public Etudiant(int idEtudiant,String nom, String email) {
+    this.nomcompletEtudiant = nom;
+    this.emailEtudiant = email;
+    this.idEtudiant = idEtudiant;
+
+}
     // hedha pour l'insertion
     public Etudiant(String nomcompletEtudiant,String emailEtudiant,String mdpEtudiant) {
         this.nomcompletEtudiant = nomcompletEtudiant;

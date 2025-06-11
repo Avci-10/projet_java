@@ -9,7 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 
 public class EtudiantDb {
-    //methode bech naamlou l"insertion
+
     public boolean insertEtudiant(Etudiant etudiant) {
         String requete = "insert into etudiant (NOM_COMPLET, EMAIL, mot_de_passe) values(?,?,?)";
         try (Connection db = DbConnection.etablirConnection();
@@ -24,12 +24,12 @@ public class EtudiantDb {
         }
     }
 
-    //modification mte3 etudiant ism w email
+
     public boolean updateEtudiant(Etudiant etudiant) {
         String requete = "update etudiant set NOM_COMPLET = ?,EMAIL=? where id=?";
         try (Connection db = DbConnection.etablirConnection();
              PreparedStatement ps = db.prepareStatement(requete)) {
-            if (!etudiant.getEmailEtudiant().isEmpty() || !etudiant.getNomcompletEtudiant().isEmpty()) {
+            if (!etudiant.getEmailEtudiant().isEmpty() && !etudiant.getNomcompletEtudiant().isEmpty()) {
                 ps.setString(1, etudiant.getNomcompletEtudiant());
                 ps.setString(2, etudiant.getEmailEtudiant());
                 ps.setInt(3, etudiant.getIdEtudiant());
@@ -43,16 +43,16 @@ public class EtudiantDb {
         }
     }
 
-    // bech naamlou l"affichage mte3 etudiant
+
     public List<Etudiant> getEtudiants() {
         List<Etudiant> listeEtudiants = new ArrayList<>();
         String requete = "select * from etudiant ";
-//        Etudiant etudiant = null; ken taamel Etudiant etudiant ;  fi return ygolek variable no initialisee naamlou null bech on peut l"utiliser el barra men ay bloc
+       Etudiant etudiant = null;
         try (Connection db = DbConnection.etablirConnection();
              PreparedStatement ps = db.prepareStatement(requete)) {
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) { // sera false si l"email n"existe pas
-                    Etudiant etudiant = new Etudiant(
+                while (rs.next()) {
+                     etudiant = new Etudiant(
                             rs.getInt("id"),
                             rs.getString("NOM_COMPLET"),
                             rs.getString("EMAIL"),
@@ -67,7 +67,7 @@ public class EtudiantDb {
         }
         return listeEtudiants;
     }
-    //afficher un seul etudiant
+
     public  Etudiant getEtudiantsparId(int id){
         Etudiant etudiant = null;
         String requete = "select * from etudiant where id=?";
@@ -89,7 +89,7 @@ public class EtudiantDb {
         return etudiant;
     };
 
-    // bech tfasakh etudiant
+    
     public boolean deleteEtudiant(int id) {
         String requete = "delete from etudiant where id=?";
         try (Connection db = DbConnection.etablirConnection();
@@ -100,6 +100,23 @@ public class EtudiantDb {
             e.printStackTrace();
             return false;
         }
+
+    }
+    public int sommeEtudiants(){
+        String requete = "select count(*) as nbetud from etudiant ";
+        try (Connection con = DbConnection.etablirConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(requete)) {
+
+            if (rs.next()) {
+                return rs.getInt("nbetud");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
 
     }
 
